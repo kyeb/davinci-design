@@ -1,7 +1,27 @@
 import * as React from "react"
 import { createRoot } from "react-dom/client";
-import { App } from "./App";
+import { Root } from "./routes/root"
+import { Editor } from "./routes/editor"
+import {
+    createBrowserRouter,
+    RouterProvider,
+} from "react-router-dom";
+
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <Root />,
+        children: [
+            {
+                path: "/editor",
+                element: <Editor />,
+            }
+        ]
+    },
+]);
 
 const container = document.getElementById("app");
-const root = createRoot(container)
-root.render(<App />);
+createRoot(container).render(
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>);

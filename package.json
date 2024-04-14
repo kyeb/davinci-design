@@ -1,18 +1,23 @@
 {
   "name": "davinci-design",
   "browserslist": "> 0.5%, last 2 versions, not dead",
+  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "2.12.0",
     "@types/react": "^18.2.78",
     "parcel": "^2.12.0",
-    "process": "^0.11.10"
+    "process": "^0.11.10",
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.3"
   },
   "license": "MIT"
 }
