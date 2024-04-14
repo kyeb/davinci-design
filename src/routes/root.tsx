@@ -1,14 +1,18 @@
 import * as React from "react";
 import logo from "../img/logo.png";
 import * as classes from "../styles/global.scss";
+import { Outlet } from "react-router-dom";
 
 document.body.className = classes.body;
 
 const Root = () => {
-    return <>
-        <h1>The AI Mechanical Engineer</h1>
-        <img src={logo} alt="Davinci Design logo" />
-    </>;
-}
+  return (
+    <>
+      <img src={logo} alt="Davinci Design logo" />
+      <h1>Davinci</h1>
+      <Outlet />
+    </>
+  );
+};
 
-export { Root }
+export { Root };
