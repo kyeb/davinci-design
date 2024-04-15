@@ -1,21 +1,19 @@
 import * as React from "react";
+import * as classes from "../styles/root.module.scss";
 import logo from "../static/logo.png";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import * as classes from "../styles/root.scss";
-document.body.className = classes.body;
-
 const Root = () => {
   return (
-    <div className="root">
+    <div className={classes.root}>
       <Link to="/">
-        <div className="logo-container">
-          <img src={logo} alt="Davinci Design logo" className="logo" />
+        <div className={classes.logoContainer}>
+          <img src={logo} alt="Davinci Design logo" className={classes.logo} />
           <h1>Davinci</h1>
         </div>
       </Link>
-      <div className="inner">
+      <div className={classes.inner}>
         <Outlet />
       </div>
     </div>

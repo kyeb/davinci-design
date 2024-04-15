@@ -1,19 +1,17 @@
 import * as React from "react";
+import * as classes from "../styles/editor.module.scss";
 import { STLViewer } from "../components/viewer";
 import { Chat } from "../components/chat";
 import stl from "../static/coffee-machine.stl";
 
-import * as classes from "../styles/editor.scss";
-document.body.className = classes.body;
-
 const Editor = () => {
   return (
-    <div className="editor">
-      <div className="chat-title"></div>
-      <div className="chat">
+    <div className={classes.editor}>
+      <div className={classes.chatTitle}></div>
+      <div>
         <Chat />
       </div>
-      <div className="viewer">
+      <div className={classes.viewer}>
         <STLViewer url={stl} />
       </div>
     </div>
