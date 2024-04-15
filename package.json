@@ -1,5 +1,6 @@
 {
   "name": "davinci-design",
+  "homepage": "https://kyeb.github.io/davinci-design/",
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "dev": "parcel src/index.html",
