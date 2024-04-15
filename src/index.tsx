@@ -7,6 +7,13 @@ import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
 
 import "./styles/global.scss";
 
+// In prod, this site is currently deployed to a subpath on GitHub Pages
+// (https://kyeb.github.io/davinci-design/), which requires a base path to work
+// (otherwise the router gets *real* confused).
+
+// @ts-ignore Parcel makes the NODE_ENV variable available
+const basename = process.env.NODE_ENV === "production" ? "/davinci-design" : "";
+
 const router = createBrowserRouter(
   [
     {
@@ -32,7 +39,7 @@ const router = createBrowserRouter(
       ],
     },
   ],
-  { basename: process.env.NODE_ENV === "production" ? "/davinci-design" : "" }
+  { basename }
 );
 
 const container = document.getElementById("app");
