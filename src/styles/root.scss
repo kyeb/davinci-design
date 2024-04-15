@@ -11,11 +11,12 @@
   display: flex;
   justify-content: flex-start;
   gap: 1vw;
+  align-items: center;
 }
 
 .logo {
-  height: 4vh;
-  width: 4vh;
+  height: 5vh;
+  width: auto;
 }
 
 .inner {

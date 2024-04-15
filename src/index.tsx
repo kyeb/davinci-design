@@ -2,6 +2,7 @@ import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { Root } from "./routes/root";
 import { Editor } from "./routes/editor";
+import { Homepage } from "./routes/homepage";
 import { Page } from "./components/page";
 import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
 
@@ -24,7 +25,7 @@ const router = createBrowserRouter(
           path: "/",
           element: (
             <Page title="Home">
-              <Link to="/editor">editor</Link>
+              <Homepage />
             </Page>
           ),
         },
