@@ -5,6 +5,8 @@ import { Editor } from "./routes/editor";
 import { Page } from "./components/page";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+import "./styles/global.scss";
+
 const router = createBrowserRouter([
   {
     path: "/",

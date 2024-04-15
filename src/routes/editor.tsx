@@ -1,15 +1,22 @@
 import * as React from "react";
 import { STLViewer } from "../components/viewer";
+import { Chat } from "../components/chat";
 import stl from "../static/coffee-machine.stl";
+
+import * as classes from "../styles/editor.scss";
+document.body.className = classes.body;
 
 const Editor = () => {
   return (
-    <>
-      <h1>Editor</h1>
-      <div style={{ height: "100vh", width: "100vw" }}>
+    <div className="editor">
+      <div className="chat-title"></div>
+      <div className="chat">
+        <Chat />
+      </div>
+      <div className="viewer">
         <STLViewer url={stl} />
       </div>
-    </>
+    </div>
   );
 };
 

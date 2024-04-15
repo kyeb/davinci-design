@@ -1,9 +1,8 @@
 import * as React from "react";
-import { Suspense, useRef, useState } from "react";
+import { Suspense, useRef } from "react";
 
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
 import { Canvas, useLoader, useFrame } from "@react-three/fiber";
-import { DoubleSide } from "three";
 
 function STLModel({ url }) {
   const stl = useLoader(STLLoader, url);

@@ -1,17 +1,21 @@
 import * as React from "react";
 import logo from "../static/logo.png";
-import * as classes from "../styles/global.scss";
 import { Outlet } from "react-router-dom";
 
+import * as classes from "../styles/root.scss";
 document.body.className = classes.body;
 
 const Root = () => {
   return (
-    <>
-      <img src={logo} alt="Davinci Design logo" />
-      <h1>Davinci</h1>
-      <Outlet />
-    </>
+    <div className="root">
+      <div className="logo-container">
+        <img src={logo} alt="Davinci Design logo" className="logo" />
+        <h1>Davinci</h1>
+      </div>
+      <div className="inner">
+        <Outlet />
+      </div>
+    </div>
   );
 };
 
