@@ -1,11 +1,12 @@
 {
   "name": "davinci-design",
   "browserslist": "> 0.5%, last 2 versions, not dead",
-  "types": "dist/index.d.ts",
   "scripts": {
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d dist"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "2.12.0",
