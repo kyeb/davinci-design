@@ -4,8 +4,8 @@
   "browserslist": "> 0.5%, last 2 versions, not dead",
   "scripts": {
     "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html --public-url /davinci-design/",
     "typecheck": "tsc --noEmit",
+    "build": "rm -rf dist && parcel build src/index.html --public-url /davinci-design/",
     "predeploy": "yarn build",
     "deploy": "gh-pages -d dist"
   },
