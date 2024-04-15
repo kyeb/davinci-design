@@ -1,12 +1,15 @@
+$headerHeight: 6vh;
+
 .root {
   width: 100vw;
   height: 100vh;
   display: grid;
-  grid-template-rows: 5vh auto;
+  grid-template-rows: $headerHeight auto;
 }
 
 .logoContainer {
-  height: 5vh;
+  height: $headerHeight;
+  padding: 1rem;
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -15,7 +18,7 @@
 }
 
 .logo {
-  height: 5vh;
+  height: calc($headerHeight - 2rem);
   width: auto;
 }
 
