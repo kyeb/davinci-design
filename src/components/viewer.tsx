@@ -1,19 +1,33 @@
 import * as React from "react";
-import { Suspense } from "react";
+import { Suspense, useRef, useState } from "react";
 
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
-import { Canvas, useLoader } from "@react-three/fiber";
+import { Canvas, useLoader, useFrame } from "@react-three/fiber";
+import { DoubleSide } from "three";
 
 function STLModel({ url }) {
   const stl = useLoader(STLLoader, url);
-  return <primitive object={stl} scale={[0.5, 0.5, 0.5]} />;
+  const meshRef = useRef();
+  useFrame((state, delta) => {
+    if (meshRef.current.rotation) {
+      meshRef.current.rotation.y += delta;
+    }
+  });
+  return (
+    <>
+      <mesh ref={meshRef} scale={[0.01, 0.01, 0.01]}>
+        <primitive object={stl} attach="geometry"></primitive>
+        <meshStandardMaterial color="orange" roughness={0.2} metalness={0.3} />
+      </mesh>
+    </>
+  );
 }
 
 const STLViewer = ({ url }) => {
   return (
     <Canvas style={{ background: "lightblue" }}>
-      <ambientLight intensity={0.5} />
-      <pointLight position={[10, 10, 10]} />
+      <ambientLight />
+      <directionalLight color="white" position={[0, 0, 5]} />
       <Suspense fallback={null}>
         <STLModel url={url} />
       </Suspense>

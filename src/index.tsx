@@ -2,6 +2,7 @@ import * as React from "react";
 import { createRoot } from "react-dom/client";
 import { Root } from "./routes/root";
 import { Editor } from "./routes/editor";
+import { Page } from "./components/page";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 const router = createBrowserRouter([
@@ -11,7 +12,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/editor",
-        element: <Editor />,
+        element: (
+          <Page title="Davinci Editor">
+            <Editor />
+          </Page>
+        ),
       },
     ],
   },

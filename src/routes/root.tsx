@@ -1,5 +1,5 @@
 import * as React from "react";
-import logo from "../img/logo.png";
+import logo from "../static/logo.png";
 import * as classes from "../styles/global.scss";
 import { Outlet } from "react-router-dom";
 
