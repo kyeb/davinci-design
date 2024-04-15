@@ -13,6 +13,14 @@ const router = createBrowserRouter([
     element: <Root />,
     children: [
       {
+        path: "/",
+        element: (
+          <Page title="Home">
+            <a href="/editor">editor</a>
+          </Page>
+        ),
+      },
+      {
         path: "/editor",
         element: (
           <Page title="Davinci Editor">
