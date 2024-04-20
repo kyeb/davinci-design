@@ -30,7 +30,7 @@ const STLModel = ({ url }) => {
       meshRef.current.position.y -= center.y;
       meshRef.current.position.z -= center.z;
     }
-  }, [scene, stl]); // Depend on scene and stl to ensure update when necessary
+  }, [scene, stl]);
 
   return (
     <>
@@ -49,7 +49,6 @@ const STLViewer = ({ url }) => {
         <ambientLight />
         <directionalLight color="white" position={[0, 0, 5]} />
         <directionalLight color="white" position={[0, 0, -5]} />
-        {/* <directionalLight color="white" position={[0, -5, -5]} /> */}
         <PerspectiveCamera makeDefault position={[3, 2, 5]} />
         <OrbitControls rotateSpeed={0.5} />
         <Suspense fallback={null}>
