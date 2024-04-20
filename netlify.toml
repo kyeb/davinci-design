@@ -1,15 +1,20 @@
 [build]
-  command = "yarn run build"
-  functions = "netlify/functions"
-  publish = "dist"
+  command = "yarn --cwd frontend build"
+  publish = "frontend/dist"
+  functions = "backend" # TODO?
 
-  # SPA setup
+  # Set up as SPA (all routes just serve index.html)
   [[redirects]]
     from = "/*"
     to = "/index.html"
     status = 200
 
+  # Set up backend (for now, just /graphql endpoint)
+  [[redirects]]
+    from = "/graphql"
+    to = "TODO?"
+
   [dev]
-    command = "yarn dev"
+    command = "yarn --cwd frontend dev"
     port = 3000
-    publish = "dist"
+    publish = "frontend/dist"

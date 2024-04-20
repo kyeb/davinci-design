@@ -1,0 +1,15 @@
+[project]
+name = "davinci-design-backend"
+version = "0.1.0"
+description = "Backend for davinci-design web app"
+authors = [
+    {name = "Kye Burchard", email = "kyeb@mit.edu"},
+]
+dependencies = []
+requires-python = "==3.12.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+
+[tool.pdm]
+distribution = false
