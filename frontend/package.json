@@ -27,6 +27,5 @@
     "three": "^0.163.0",
     "three-stdlib": "^2.29.6"
   },
-  "license": "MIT",
-  "packageManager": "yarn@4.1.1"
+  "license": "MIT"
 }

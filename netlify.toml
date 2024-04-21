@@ -1,0 +1,20 @@
+[build]
+  command = "yarn --cwd frontend build"
+  publish = "frontend/dist"
+  functions = "backend" # TODO?
+
+  # Set up as SPA (all routes just serve index.html)
+  [[redirects]]
+    from = "/*"
+    to = "/index.html"
+    status = 200
+
+  # Set up backend (for now, just /graphql endpoint)
+  [[redirects]]
+    from = "/graphql"
+    to = "TODO?"
+
+  [dev]
+    command = "yarn --cwd frontend dev"
+    port = 3000
+    publish = "frontend/dist"
