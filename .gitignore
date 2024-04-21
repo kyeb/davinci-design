@@ -1,6 +1,5 @@
-# Local Netlify folder
-.netlify
-
 frontend/dist/
 frontend/node_modules/
 frontend/.parcel-cache/
+
+ansible/hosts

@@ -1,0 +1,11 @@
+- name: Deploy code changes
+  hosts: servers
+
+  tasks:
+    - name: Update code
+      copy:
+        src: ../frontend/dist
+        dest: /srv
+        owner: root
+        group: root
+        mode: 0755
