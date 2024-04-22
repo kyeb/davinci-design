@@ -36,7 +36,7 @@ const STLModel = ({ url }) => {
     <>
       <mesh ref={meshRef} scale={[0.01, 0.01, 0.01]}>
         <primitive object={stl} attach="geometry"></primitive>
-        <meshStandardMaterial color="orange" roughness={0.2} metalness={0.5} />
+        <meshStandardMaterial color="pink" roughness={0.2} metalness={0.5} />
       </mesh>
     </>
   );

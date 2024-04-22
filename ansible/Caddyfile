@@ -1,0 +1,13 @@
+:9005
+
+# Serve static content
+root * ./frontend/dist
+file_server
+
+# Proxy API requests to the backend
+handle /api* {
+    reverse_proxy 127.0.0.1:8000
+}
+
+# Serve the SPA entry point on all other requests
+try_files {path} /index.html

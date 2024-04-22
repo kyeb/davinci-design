@@ -4,15 +4,20 @@
   tasks:
     - name: Update Caddy configuration
       copy:
-        src:
-        dest:
+        src: Caddyfile
+        dest: /etc/caddy/Caddyfile
+
+    - name: Reload Caddy
+      service:
+        name: caddy
+        state: reloaded
 
     - name: Update frontend assets
       copy:
         src: ../frontend/dist
-        dest: /srv/assets
+        dest: /srv/frontend
 
     - name: Update backend
       copy:
-        src: ../backend
+        src: ../backend/davinci_backend
         dest: /srv
