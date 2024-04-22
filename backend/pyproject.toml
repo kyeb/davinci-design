@@ -5,7 +5,11 @@ description = "Backend for davinci-design web app"
 authors = [
     {name = "Kye Burchard", email = "kyeb@mit.edu"},
 ]
-dependencies = []
+dependencies = [
+    "strawberry-graphql[fastapi]>=0.227.2",
+    "fastapi>=0.110.2",
+    "uvicorn[standard]>=0.29.0",
+]
 requires-python = "==3.12.*"
 readme = "README.md"
 license = {text = "MIT"}

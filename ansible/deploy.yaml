@@ -2,10 +2,17 @@
   hosts: servers
 
   tasks:
-    - name: Update code
+    - name: Update Caddy configuration
+      copy:
+        src:
+        dest:
+
+    - name: Update frontend assets
       copy:
         src: ../frontend/dist
+        dest: /srv/assets
+
+    - name: Update backend
+      copy:
+        src: ../backend
         dest: /srv
-        owner: root
-        group: root
-        mode: 0755
