@@ -20,8 +20,9 @@ declare module "*.svg" {
   export default value;
 }
 
-declare module "*.scss" {
-  const body: string;
+declare module "*.module.scss" {
+  const classes: { [key: string]: string };
+  export default classes;
 }
 
 declare module "*.stl" {
