@@ -28,7 +28,7 @@ Set up your hosts:
 Add the IP address of the hosts you need to deploy to.
 
 On a fresh box:
-`ansible-playbook -i ansible/hosts ansible/full-setup.yaml`
+`ansible-playbook -i ansible/hosts ansible/initial-setup.yaml`
 
 To redeploy to a box previously set up:
 `ansible-playbook -i ansible/hosts ansible/deploy.yaml`

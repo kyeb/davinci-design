@@ -12,12 +12,37 @@
         name: caddy
         state: reloaded
 
-    - name: Update frontend assets
-      copy:
+    - name: Sync frontend source files
+      synchronize:
         src: ../frontend/dist
-        dest: /srv/frontend
-
-    - name: Update backend
-      copy:
-        src: ../backend/davinci_backend
         dest: /srv
+        delete: yes
+        recursive: yes
+        rsync_opts:
+          - "--exclude-from=../.gitignore"
+
+    - name: Sync backend source files
+      synchronize:
+        src: ../backend
+        dest: /srv
+        delete: yes
+        recursive: yes
+        rsync_opts:
+          - "--exclude-from=../.gitignore"
+
+    - name: Install backend dependencies
+      command: /root/.local/bin/pdm install
+      args:
+        chdir: /srv/backend
+
+    - name: Update service configuration
+      copy:
+        src: davinci-backend.service
+        dest: /etc/systemd/system/davinci-backend.service
+
+    - name: Restart and enable backend service
+      systemd_service:
+        daemon_reload: true
+        name: davinci-backend
+        enabled: yes
+        state: restarted

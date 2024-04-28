@@ -1,4 +1,4 @@
-- name: Full setup
+- name: Initial setup
   hosts: servers
 
   tasks:
@@ -10,6 +10,8 @@
           - debian-archive-keyring
           - apt-transport-https
           - htop
+          - rsync
+          - python3-pip
         state: present
 
     - name: Add Cloudsmith repository
@@ -42,3 +44,18 @@
         name: caddy
         enabled: yes
         state: started
+
+    - name: Trust Caddy for local HTTPS
+      command: caddy trust
+
+    - name: Install pdm with pip
+      pip:
+        name: pdm
+        state: present
+        extra_args: --user
+
+    - name: Add pip's bin directory to PATH
+      copy:
+        dest: /etc/profile.d/set-path.sh
+        content: "PATH=$PATH:~/.local/bin"
+        mode: "0644"
