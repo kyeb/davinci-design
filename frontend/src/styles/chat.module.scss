@@ -2,16 +2,21 @@
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: 1fr 8fr auto;
+  grid-template-rows: auto 1fr auto 1rem auto;
   padding: 3%;
 }
 
 .chatInput {
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: 0.5rem;
 }
 
 .chatInputTextbox {
   width: 100%;
+}
+
+.chatUploadButton {
+  width: 100%;
+  height: 100%;
 }

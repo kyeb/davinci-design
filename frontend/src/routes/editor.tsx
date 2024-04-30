@@ -7,7 +7,6 @@ import stl from "../static/coffee-machine.stl";
 const Editor = () => {
   return (
     <div className={classes.editor}>
-      <div className={classes.chatTitle}></div>
       <div>
         <Chat />
       </div>

@@ -4,7 +4,13 @@ import { Root } from "./routes/root";
 import { Editor } from "./routes/editor";
 import { Homepage } from "./routes/homepage";
 import { Page } from "./components/page";
-import { createBrowserRouter, RouterProvider, Link } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  gql,
+} from "@apollo/client";
 
 import "./styles/global.scss";
 
@@ -33,9 +39,16 @@ const router = createBrowserRouter([
   },
 ]);
 
+const client = new ApolloClient({
+  uri: "/api/graphql",
+  cache: new InMemoryCache(),
+});
+
 const container = document.getElementById("app");
 createRoot(container).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ApolloProvider client={client}>
+      <RouterProvider router={router} />
+    </ApolloProvider>
   </React.StrictMode>
 );

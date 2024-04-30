@@ -1,5 +1,6 @@
 import strawberry
 from typing import List
+from davinci_backend.file_utils import S3UploadUrl
 
 
 @strawberry.type
@@ -22,4 +23,11 @@ class Query:
     books: List[Book] = strawberry.field(resolver=get_books)
 
 
-schema = strawberry.Schema(query=Query)
+@strawberry.type
+class Mutation:
+    @strawberry.mutation
+    def create_s3_upload_url(self, info: strawberry.Info) -> S3UploadUrl:
+        return info.context.s3_client.generate_upload_url()
+
+
+schema = strawberry.Schema(query=Query, mutation=Mutation)
