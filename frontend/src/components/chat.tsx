@@ -21,10 +21,6 @@ const UploadForm = ({ data }) => {
     const url = data.createS3UploadUrl.url;
     const formData = new FormData();
     formData.append("file", file);
-    // formData.append("key", data.createS3UploadUrl.key);
-    // formData.append("AWSAccessKeyId", data.createS3UploadUrl.awsAccessKeyId);
-    // formData.append("policy", data.createS3UploadUrl.policy);
-    // formData.append("signature", data.createS3UploadUrl.signature);
 
     try {
       const response = await fetch(url, {

@@ -10,22 +10,13 @@ import davinci_backend.db.utils as db_utils
 @strawberry.type
 class S3UploadUrl:
     url: str
-    # key: str
-    # aws_access_key_id: str
-    # policy: str
-    # signature: str
+    key: str
 
     def __init__(self):
         self.key = db_utils.generate_id("img")
 
-    def set_signed_url_fields(
-        self,
-        response: dict,
-    ):
-        self.url = response
-        # self.aws_access_key_id = response["fields"]["AWSAccessKeyId"]
-        # self.policy = response["fields"]["policy"]
-        # self.signature = response["fields"]["signature"]
+    def set_url(self, url: str):
+        self.url = url
 
 
 class S3Client:
