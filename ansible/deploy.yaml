@@ -18,8 +18,6 @@
         dest: /srv
         delete: yes
         recursive: yes
-        rsync_opts:
-          - "--exclude-from=../.gitignore"
 
     - name: Sync backend source files
       synchronize:

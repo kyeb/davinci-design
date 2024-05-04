@@ -47,7 +47,7 @@ class S3Client:
                 },
                 ExpiresIn=3000,  # 5 minutes
             )
-            upload_url.set_signed_url_fields(response)
+            upload_url.set_url(response)
             return upload_url
         except ClientError as e:
             print(e)

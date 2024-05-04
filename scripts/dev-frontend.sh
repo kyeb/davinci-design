@@ -3,19 +3,13 @@
 # Trap INT and TERM signals and kill yarn dev process then exit
 trap 'kill $(jobs -p); exit' INT TERM
 
-cd frontend
-yarn dev &
-yarn_pid=$!
-
-# wait for yarn to exit
-wait $yarn_pid
-
-# Check the exit status of yarn_pid and exit with the same status if non-zero
-if [ $? -ne 0 ]; then
-    exit $?
-fi
-
 while true; do
+    cd frontend
+    yarn dev &
+    yarn_pid=$!
+
+    # wait for yarn to exit
+    wait $yarn_pid
     clear
     echo "Deploy in progress, waiting until it's done to restart the dev server..."
 
@@ -29,11 +23,6 @@ while true; do
         sleep 0.1
     done
 
+    cd ..
     echo "Deploy complete, restarting dev server"
-
-    yarn dev &
-    yarn_pid=$!
-
-    # wait for yarn to exit
-    wait $yarn_pid
 done
