@@ -28,9 +28,9 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/editor",
+        path: "/projects/:projectId/edit",
         element: (
-          <Page title="Davinci Editor">
+          <Page title="Edit Project">
             <Editor />
           </Page>
         ),

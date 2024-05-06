@@ -1,19 +1,29 @@
 import * as React from "react";
-import * as classes from "../styles/chat.module.scss";
 import { useMutation } from "@apollo/client";
 import { gql } from "@apollo/client";
 
 const { useState } = React;
 
-const getUploadUrlQuery = gql`
+const GET_UPLOAD_URL_QUERY = gql`
   mutation GetUploadUrl {
     createS3UploadUrl {
+      url
+      key
+    }
+  }
+`;
+
+const GENERATE_MODEL_FROM_IMAGE = gql`
+  mutation GenerateModelFromImage($key: String!) {
+    generateModelFromImage(s3Key: $key) {
       url
     }
   }
 `;
 
 const UploadForm = ({ data }) => {
+  const [reportSuccessfulUpload] = useMutation(GENERATE_MODEL_FROM_IMAGE);
+
   const handleFileSelect = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -29,6 +39,11 @@ const UploadForm = ({ data }) => {
       });
       if (response.ok) {
         console.log("File uploaded successfully");
+        const { data: modelData } = await reportSuccessfulUpload({
+          variables: { key: data.createS3UploadUrl.key },
+        });
+        const modelUrl = modelData.generateModelFromImage.url;
+        console.log(modelUrl);
       } else {
         console.error("File upload failed", response.status);
       }
@@ -39,24 +54,11 @@ const UploadForm = ({ data }) => {
 
   return (
     <>
-      {/* <input type="hidden" name="key" value={data.createS3UploadUrl.key} />
-      <input
-        type="hidden"
-        name="AWSAccessKeyId"
-        value={data.createS3UploadUrl.awsAccessKeyId}
-      />
-      <input
-        type="hidden"
-        name="policy"
-        value={data.createS3UploadUrl.policy}
-      />
-      <input
-        type="hidden"
-        name="signature"
-        value={data.createS3UploadUrl.signature}
-      /> */}
-      <label htmlFor="file" className="ui button">
-        Select image
+      <label
+        className="rounded bg-maroon-500 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-maroon-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon-500"
+        htmlFor="file"
+      >
+        Upload an image
       </label>
       <input
         type="file"
@@ -65,49 +67,65 @@ const UploadForm = ({ data }) => {
         style={{ display: "none" }}
         onChange={handleFileSelect}
       />
-      {/* <label htmlFor="submit" className="ui button">
-        Upload it
-      </label>
-      <input
-        type="submit"
-        name="submit"
-        id="submit"
-        style={{ display: "none" }}
-      /> */}
     </>
   );
 };
 
-const Chat = () => {
+const Chat = ({ project }) => {
   const [chat, setChat] = useState("");
 
-  const [getUploadUrl, { data }] = useMutation(getUploadUrlQuery);
+  const [getUploadUrl, { data }] = useMutation(GET_UPLOAD_URL_QUERY);
 
   React.useEffect(() => {
     getUploadUrl();
   }, []);
 
   return (
-    <div className={classes.container}>
-      <h2>Chat</h2>
+    <div>
+      <div>Project - {project && project.name}</div>
+      <br />
+      <br />
+      <div>
+        <h2>Chat</h2>
+      </div>
+      <br />
       <div>
         <p>imagine some chat logs here</p>
         <p>...</p>
         <p>blah blah blah</p>
       </div>
-      {data && <UploadForm data={data} />}
-      <div></div>
-      <div className={classes.chatInput}>
-        <div className={"ui icon input " + classes.chatInputTextbox}>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <div>
+        <label
+          htmlFor="search"
+          className="block text-sm font-medium leading-6 "
+        >
+          Chat with Davinci
+        </label>
+        <div className="relative mt-2 flex items-center">
           <input
             type="text"
-            placeholder="Ask Davinci something..."
+            name="search"
+            id="search"
+            className="block w-full rounded-md border-0 py-1.5 pr-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
             value={chat}
-            onChange={(e) => setChat(e.target.value)}
+            onChange={(event) => setChat(event.target.value)}
           />
-          <i className="paper plane outline icon large" />
+          {/* TODO: get shortcut working */}
+          {/* <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
+            <kbd className="inline-flex items-center rounded border border-gray-200 px-1 font-sans text-xs text-gray-400">
+              ⌘K
+            </kbd>
+          </div> */}
         </div>
       </div>
+      <br />
+      {data && <UploadForm data={data} />}
     </div>
   );
 };

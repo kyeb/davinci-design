@@ -6,20 +6,31 @@ from davinci_backend.file_utils import S3UploadUrl
 
 @strawberry.type
 class Project:
-    id: str
+    id: strawberry.ID
     name: str
+
+
+@strawberry.type
+class Model:
+    id: strawberry.ID
+    url: str
 
 
 @strawberry.type
 class Query:
     @strawberry.field
     def projects(self, info: strawberry.Info) -> List[Project]:
-        print("resolving projects")
         db = info.context.db
         return [
             Project(id=project.id, name=project.name)
             for project in db.query(ProjectModel).all()
         ]
+
+    @strawberry.field
+    def project(self, info: strawberry.Info, id: strawberry.ID) -> Project:
+        db = info.context.db
+        project = db.query(ProjectModel).get(id)
+        return Project(id=project.id, name=project.name) if project else None
 
 
 @strawberry.type
@@ -35,6 +46,14 @@ class Mutation:
         db.add(model)
         db.commit()
         return Project(id=model.id, name=model.name)
+
+    @strawberry.mutation
+    def generate_model_from_image(self, info: strawberry.Info, s3_key: str) -> Model:
+        # TODO: do the thing
+        return Model(
+            id=generate_id("model"),
+            url="https://www.ozeki.hu/attachments/116/Menger_sponge_sample.stl",
+        )
 
 
 schema = strawberry.Schema(query=Query, mutation=Mutation)
