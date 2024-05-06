@@ -4,8 +4,7 @@ frontend/.parcel-cache/
 
 ansible/hosts
 
-frontend/frontend.log
-backend/backend.log
+backend/main.db
 
 # pdm-recommended gitignores
 __pycache__/
