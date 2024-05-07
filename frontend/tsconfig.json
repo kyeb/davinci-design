@@ -2,6 +2,7 @@
   "compilerOptions": {
     "isolatedModules": true,
     "jsx": "react",
+    "lib": ["es2015", "dom"],
     "plugins": [{ "name": "typescript-plugin-css-modules" }]
   }
 }
