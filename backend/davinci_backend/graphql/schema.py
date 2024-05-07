@@ -32,13 +32,13 @@ class Query:
         project = db.query(ProjectModel).get(id)
         return Project(id=project.id, name=project.name) if project else None
 
+    @strawberry.field
+    def s3_upload_url(self, info: strawberry.Info) -> S3UploadUrl:
+        return info.context.s3_client.generate_upload_url()
+
 
 @strawberry.type
 class Mutation:
-    @strawberry.mutation
-    def create_s3_upload_url(self, info: strawberry.Info) -> S3UploadUrl:
-        return info.context.s3_client.generate_upload_url()
-
     @strawberry.mutation
     def create_project(self, info: strawberry.Info, name: str) -> Project:
         db = info.context.db
@@ -52,7 +52,7 @@ class Mutation:
         # TODO: do the thing
         return Model(
             id=generate_id("model"),
-            url="https://www.ozeki.hu/attachments/116/Menger_sponge_sample.stl",
+            url="https://assets.davinci.kyeburchard.com/Menger_sponge_sample.stl",
         )
 
 
