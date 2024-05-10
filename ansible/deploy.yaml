@@ -28,6 +28,11 @@
         rsync_opts:
           - "--exclude-from=../.gitignore"
 
+    - name: Copy .env file
+      copy:
+        src: ../backend/.env
+        dest: /srv/backend/.env
+
     - name: Install backend dependencies
       command: /root/.local/bin/pdm install
       args:
