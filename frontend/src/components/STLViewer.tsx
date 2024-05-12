@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as classes from "../styles/editor.module.scss";
 
 import { ErrorBoundary } from "./error_boundary";
 import { STLLoader } from "three/examples/jsm/loaders/STLLoader";
@@ -7,7 +6,7 @@ import { Canvas, useLoader, useThree } from "@react-three/fiber";
 import { Mesh, Box3, Vector3 } from "three";
 import { OrbitControls, PerspectiveCamera } from "@react-three/drei";
 
-const { Suspense, useRef, useEffect } = React;
+const { Suspense, useRef, useEffect, useState } = React;
 
 const ErrorView = () => {
   return <p>An error ocurred while rendering your model 😔</p>;
@@ -45,16 +44,18 @@ const STLModel = ({ url }) => {
 const STLViewer = ({ url }) => {
   return (
     <ErrorBoundary fallback={<ErrorView />}>
-      <Canvas className={classes.canvas}>
-        <ambientLight />
-        <directionalLight color="white" position={[0, 0, 5]} />
-        <directionalLight color="white" position={[0, 0, -5]} />
-        <PerspectiveCamera makeDefault position={[3, 2, 5]} />
-        <OrbitControls rotateSpeed={0.5} />
-        <Suspense fallback={null}>
-          <STLModel url={url} />
-        </Suspense>
-      </Canvas>
+      <div className="h-full p-2">
+        <Canvas className="rounded bg-blue-200">
+          <ambientLight />
+          <directionalLight color="white" position={[0, 0, 5]} />
+          <directionalLight color="white" position={[0, 0, -5]} />
+          <PerspectiveCamera makeDefault position={[3, 2, 5]} />
+          <OrbitControls rotateSpeed={0.5} />
+          <Suspense fallback={null}>
+            <STLModel url={url} />
+          </Suspense>
+        </Canvas>
+      </div>
     </ErrorBoundary>
   );
 };

@@ -1,6 +1,5 @@
 import * as React from "react";
-import * as classes from "../styles/editor.module.scss";
-import { STLViewer } from "../components/viewer";
+import { STLViewer } from "../components/STLViewer";
 import stl from "../static/coffee-machine.stl";
 import { useParams } from "react-router-dom";
 import { gql, useMutation, useQuery } from "@apollo/client";
@@ -63,9 +62,9 @@ const UploadForm = ({ upload, setCurrentStl }) => {
   };
 
   return (
-    <>
+    <div>
       <label
-        className="rounded bg-maroon-500 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-maroon-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon-500"
+        className="rounded bg-maroon-500 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-maroon-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon-500 cursor-pointer"
         htmlFor="file"
       >
         Upload an image
@@ -74,10 +73,75 @@ const UploadForm = ({ upload, setCurrentStl }) => {
         type="file"
         name="file"
         id="file"
-        style={{ display: "none" }}
+        className="hidden"
         onChange={handleFileSelect}
       />
-    </>
+    </div>
+  );
+};
+const ChatBar = ({ data, chat, s3data, setCurrentStl }) => {
+  return (
+    <div className="p-3 flex flex-col justify-between h-full">
+      <div className="flex flex-col justify-between h-5/6">
+        <div className="text-lg">
+          <div>Project - {data.project && data.project.name}</div>
+          <div className="text-base">
+            <h2>Chat</h2>
+          </div>
+          <div className="text-xs">
+            <p>imagine some chat logs here</p>
+            <p>...</p>
+            <p>blah blah blah</p>
+          </div>
+        </div>
+        <div>
+          <label
+            htmlFor="chat"
+            className="block text-sm font-medium leading-6 "
+          >
+            Chat with Davinci
+          </label>
+          <div className="mt-2">
+            <input
+              type="text"
+              name="chat"
+              id="chat"
+              className="block rounded-md border-0 px-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              value={chat}
+              onChange={() =>
+                alert(
+                  "Chat functionality is not implemented yet - come back later!"
+                )
+              }
+            />
+            {/* TODO: get shortcut working */}
+            {/* <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
+                <kbd className="inline-flex items-center rounded border border-gray-200 px-1 font-sans text-xs text-gray-400">
+                  ⌘K
+                </kbd>
+              </div> */}
+          </div>
+          <div className="mt-2">
+            {s3data && (
+              <UploadForm
+                upload={s3data.uploadInfo}
+                setCurrentStl={setCurrentStl}
+              />
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-end">
+        <a
+          href="https://davincidesign3d.com/#contact-us"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded bg-maroon-500 px-2 py-1 text-sm font-semibold text-white shadow-sm hover:bg-maroon-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-maroon-500"
+        >
+          Feedback?
+        </a>
+      </div>
+    </div>
   );
 };
 
@@ -93,65 +157,16 @@ const Editor = () => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (
-    <div className={classes.editor}>
-      <div>
-        <div>
-          <div>Project - {data.project && data.project.name}</div>
-          <br />
-          <br />
-          <div>
-            <h2>Chat</h2>
-          </div>
-          <br />
-          <div>
-            <p>imagine some chat logs here</p>
-            <p>...</p>
-            <p>blah blah blah</p>
-          </div>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <div>
-            <label
-              htmlFor="search"
-              className="block text-sm font-medium leading-6 "
-            >
-              Chat with Davinci
-            </label>
-            <div className="relative mt-2 flex items-center">
-              <input
-                type="text"
-                name="search"
-                id="search"
-                className="block w-full rounded-md border-0 py-1.5 pr-14 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                value={chat}
-                onChange={() =>
-                  alert(
-                    "Chat functionality is not implemented yet - come back later!"
-                  )
-                }
-              />
-              {/* TODO: get shortcut working */}
-              {/* <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
-            <kbd className="inline-flex items-center rounded border border-gray-200 px-1 font-sans text-xs text-gray-400">
-              ⌘K
-            </kbd>
-          </div> */}
-            </div>
-          </div>
-          <br />
-          {s3data && (
-            <UploadForm
-              upload={s3data.uploadInfo}
-              setCurrentStl={setCurrentStl}
-            />
-          )}
-        </div>
+    <div className="flex h-full">
+      <div className="w-1/6">
+        <ChatBar
+          data={data}
+          chat={chat}
+          s3data={s3data}
+          setCurrentStl={setCurrentStl}
+        />
       </div>
-      <div className={classes.viewer}>
+      <div className="w-5/6">
         <STLViewer url={currentStl} />
       </div>
     </div>
